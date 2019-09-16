@@ -6,5 +6,8 @@ public class UserAlreadyExist extends RuntimeException {
         this.message = name;
     }
 
-
+    @Override
+    public String getMessage() {
+        return "User already exits " + message;
+    }
 }

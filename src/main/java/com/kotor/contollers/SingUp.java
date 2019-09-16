@@ -1,21 +1,27 @@
 package com.kotor.contollers;
 
 import com.kotor.database.Repo;
+import com.kotor.error.UserAlreadyExist;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SingUp {
     @Autowired
     private Repo repo;
-    @PostMapping("/sign-up")
-    public String register(@RequestBody
-                                   String name, @RequestBody String password) {
-        repo.addUser(name, password);
-        return "<h1>" + name + " " + password + "</h1>";
+
+    @PostMapping("/in")
+    public String register(@RequestBody String userInfo) {
+        System.out.println(userInfo);
+        String name = userInfo.split(" ")[0];
+        String password = userInfo.split(" ")[1];
+        try {
+            repo.addUser(name, password);
+        } catch (UserAlreadyExist e) {
+            return e.getMessage();
+        }
+
+        return  userInfo;
     }
 
     @GetMapping("/hi")

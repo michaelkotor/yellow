@@ -21,7 +21,14 @@ public class Repo {
         } else {
             throw new UserAlreadyExist(name);
         }
-
+    }
+    public boolean exists(String name, String password) {
+        String user = users.get(name);
+        if (user == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
