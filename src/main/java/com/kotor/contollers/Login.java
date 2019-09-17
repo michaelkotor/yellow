@@ -1,5 +1,6 @@
 package com.kotor.contollers;
 
+import com.kotor.UserModel;
 import com.kotor.database.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +16,8 @@ public class Login {
     private Repo repo;
 
     @PostMapping("/login")
-    public String pLogin(HttpSession session, @RequestBody String userInfo) {
-        String name = userInfo.split(" ")[0];
-        String password = userInfo.split(" ")[1];
-        if (repo.exists(name, password)) {
+    public String pLogin(HttpSession session, @RequestBody UserModel userModel) {
+        if (repo.exists(userModel.getName(), userModel.getPassword())) {
             session.setAttribute("isAuth", true);
             return "you ar welcome";
         }

@@ -1,5 +1,6 @@
 package com.kotor.contollers;
 
+import com.kotor.UserModel;
 import com.kotor.database.Repo;
 import com.kotor.error.UserAlreadyExist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,15 @@ public class SingUp {
     private Repo repo;
 
     @PostMapping("/in")
-    public String register(@RequestBody String userInfo) {
-        System.out.println(userInfo);
-        String name = userInfo.split(" ")[0];
-        String password = userInfo.split(" ")[1];
+    public String register(@RequestBody UserModel userModel) {
+        System.out.println(userModel);
         try {
-            repo.addUser(name, password);
+            repo.addUser(userModel.getName(), userModel.getPassword());
         } catch (UserAlreadyExist e) {
             return e.getMessage();
         }
 
-        return  userInfo;
+        return userModel.toString();
     }
 
     @GetMapping("/hi")
