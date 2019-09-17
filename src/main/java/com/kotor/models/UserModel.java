@@ -1,8 +1,9 @@
-package com.kotor;
+package com.kotor.models;
 
 public class UserModel {
     private String name;
     private String password;
+    private Long key;
 
     public UserModel() {}
 
@@ -20,5 +21,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getKey() {
+        return key;
+    }
+
+    public void setKey(Long key) {
+        this.key = key;
     }
 }

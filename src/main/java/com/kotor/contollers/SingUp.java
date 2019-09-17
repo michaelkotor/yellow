@@ -1,7 +1,7 @@
 package com.kotor.contollers;
 
-import com.kotor.UserModel;
-import com.kotor.database.Repo;
+import com.kotor.models.UserModel;
+import com.kotor.database.RepoUser;
 import com.kotor.error.UserAlreadyExist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SingUp {
     @Autowired
-    private Repo repo;
+    private RepoUser repoUser;
 
     @PostMapping("/in")
     public String register(@RequestBody UserModel userModel) {
         System.out.println(userModel);
         try {
-            repo.addUser(userModel.getName(), userModel.getPassword());
+            repoUser.addUser(userModel.getName(), userModel.getPassword());
         } catch (UserAlreadyExist e) {
             return e.getMessage();
         }

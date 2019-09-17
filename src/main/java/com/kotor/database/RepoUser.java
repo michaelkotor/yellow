@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class Repo {
+public class RepoUser {
     private Map<String, String> users = new HashMap<>();
 
     public Map<String, String> getUsers() {
