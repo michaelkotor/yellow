@@ -1,31 +1,27 @@
 package com.kotor.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 public class RunModel {
-    private int distance;
-    private int time;
-    private String date;
+    private long id;
+    private String username;
+    private double distance;
+    private double time;
 
-    public int getDistance() {
-        return distance;
-    }
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
 
-    public void setDistance(int distance) {
+    public RunModel(long id, String username, double distance, double time, Date date) {
+        this.id = id;
+        this.username = username;
         this.distance = distance;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
         this.time = time;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
         this.date = date;
+    }
+
+    public long getId() {
+        return id;
     }
 }

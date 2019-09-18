@@ -1,8 +1,6 @@
 package com.kotor.contollers;
 
 import com.kotor.database.RepoRun;
-import com.kotor.database.RepoUser;
-import com.kotor.logic.Run;
 import com.kotor.models.RunModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,18 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping("/api")
 public class Main {
-    @Autowired
-    private RepoUser repoUser;
-
     @Autowired
     private RepoRun repoRun;
 
 
     @GetMapping("/runs")
-    public List<Run>  doGet(HttpSession session) {
+    public List<RunModel> getAllRuns(HttpSession session) {
         if (session.getAttribute("isAuth") instanceof Boolean) {
             return repoRun.getRuns();
         }
@@ -29,20 +24,30 @@ public class Main {
     }
 
     @PostMapping("/new")
-    public String doPost(HttpSession session, @RequestBody RunModel runModel) {
+    public String create(HttpSession session, @RequestBody RunModel runModel) {
         if (session.getAttribute("isAuth") instanceof Boolean) {
-            repoRun.addRun(runModel.getDistance(), runModel.getTime(), runModel.getDate());
+            repoRun.addRun(runModel);
             return "run was added";
         }
         return "403";
 
     }
 
-    public String doPut(HttpSession session, @RequestBody String some) {
-        return null;
+    @PutMapping()
+    public String update(HttpSession session, @RequestBody RunModel runModel) {
+        if (session.getAttribute("isAuth") instanceof Boolean) {
+            repoRun.update(runModel);
+            return "updated";
+        }
+        return "403";
     }
 
-    public String doDelete(HttpSession session, @RequestBody String some) {
-        return null;
+    @DeleteMapping("/run/{id}")
+    public String remove(HttpSession session, @PathVariable long id) {
+        if (session.getAttribute("isAuth") instanceof Boolean) {
+            repoRun.remove(id);
+            return "removed";
+        }
+        return "403";
     }
 }
