@@ -24,4 +24,18 @@ public class RunModel {
     public long getId() {
         return id;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+
+    public double getDistance() {
+        return distance;
+    }
+
+
+    public double getTime() {
+        return time;
+    }
 }
